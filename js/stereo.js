@@ -132,7 +132,9 @@ export class StereoRenderer {
     const w = window.innerWidth;
     const h = window.innerHeight;
     this._renderer.setSize(w, h);
-    this._master.aspect = w / h;
+    // Each eye occupies half the width, so the frustum aspect must match
+    // the per-eye viewport (w/2 × h), not the full canvas.
+    this._master.aspect = (w / 2) / h;
     this._master.updateProjectionMatrix();
   }
 }
