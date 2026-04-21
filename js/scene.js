@@ -33,7 +33,7 @@ export function createScene() {
   grid.position.y = -2.5;
   scene.add(grid);
 
-  // ── Central torus knot (convergence plane, z = 0) ───────────────────────
+  // ── Central torus knot — floats clearly in front of the screen (z=2) ────
   const torusKnot = new THREE.Mesh(
     new THREE.TorusKnotGeometry(0.65, 0.22, 128, 20),
     new THREE.MeshPhongMaterial({
@@ -43,12 +43,13 @@ export function createScene() {
       specular: 0x88eeff,
     })
   );
+  torusKnot.position.z = 2;   // in front of screen plane (z=0)
   scene.add(torusKnot);
 
-  // ── Foreground cubes (z > 0 → pop out toward viewer) ─────────────────
+  // ── Foreground cubes — maximum pop-out, closest to the viewer ──────────
   const fgCubes = [
-    { pos: [-1.4, 0.6, 1.8],  hue: 0.10 },
-    { pos: [ 1.6, -0.4, 2.2], hue: 0.55 },
+    { pos: [-1.4,  0.6, 3.2], hue: 0.10 },
+    { pos: [ 1.6, -0.4, 3.6], hue: 0.55 },
   ];
   const fgMeshes = fgCubes.map(({ pos, hue }) => {
     const mesh = new THREE.Mesh(
@@ -86,13 +87,13 @@ export function createScene() {
     return mesh;
   });
 
-  // ── Ring (middle depth) ────────────────────────────────────────────────
+  // ── Ring — sits right on the screen plane (z=0), zero parallax ─────────
   const ring = new THREE.Mesh(
     new THREE.TorusGeometry(1.2, 0.06, 16, 80),
     new THREE.MeshPhongMaterial({ color: 0xffcc44, shininess: 90 })
   );
   ring.rotation.x = Math.PI / 2;
-  ring.position.set(0, 0, -1.5);
+  ring.position.set(0, 0, 0);  // exactly on screen plane
   scene.add(ring);
 
   // ── Stars in deep background ────────────────────────────────────────────

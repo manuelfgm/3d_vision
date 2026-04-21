@@ -52,7 +52,11 @@ export class StereoRenderer {
 
     // ── Stereo camera (derives cameraL / cameraR via off-axis projection) ──
     this._stereo = new THREE.StereoCamera();
-    this._stereo.eyeSep = 0.063;   // 63 mm default IPD in scene units
+    this._stereo.eyeSep     = 0.063; // 63 mm default IPD in scene units
+    // convergence = distance from camera to zero-parallax plane.
+    // Camera is at z=5 looking at origin, so convergence=5 places the
+    // screen plane at z=0. Objects with z>0 float IN FRONT of the screen.
+    this._stereo.convergence = 5;
 
     // ── State ──────────────────────────────────────────────────────────────
     this.crossEyed = false;   // parallel viewing by default
