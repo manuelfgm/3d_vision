@@ -27,16 +27,46 @@ const trackingDot  = document.getElementById("tracking-dot");
 const trackingLabel= document.getElementById("tracking-label");
 const ipdSlider    = document.getElementById("ipd-slider");
 const ipdValue     = document.getElementById("ipd-value");
-const btnStart     = document.getElementById("btn-start");
-const btnToggle    = document.getElementById("btn-toggle-mode");
-const btnBack      = document.getElementById("btn-back");
+const btnStart           = document.getElementById("btn-start");
+const btnToggle          = document.getElementById("btn-toggle-mode");
+const btnBack            = document.getElementById("btn-back");
+const portraitOverlay    = document.getElementById("portrait-overlay");
+const btnIgnorePortrait  = document.getElementById("btn-ignore-portrait");
 
 // ── Module state ──────────────────────────────────────────────────────────
-let tracker  = null;
-let renderer = null;
-let sceneObj = null;
-let running  = false;
-let lastTime = 0;
+let tracker          = null;
+let renderer         = null;
+let sceneObj         = null;
+let running          = false;
+let lastTime         = 0;
+let portraitIgnored  = false;
+
+// ── Portrait detection ────────────────────────────────────────────────────
+function isPortrait() {
+  return window.innerHeight > window.innerWidth;
+}
+
+function updatePortraitOverlay() {
+  if (isPortrait()) {
+    // Reset "ignore" flag each time the user goes back to portrait so the
+    // warning shows again if they rotate back from landscape.
+    if (!portraitIgnored) {
+      portraitOverlay.classList.remove("hidden");
+    }
+  } else {
+    // Landscape: always hide and reset the ignore flag.
+    portraitIgnored = false;
+    portraitOverlay.classList.add("hidden");
+  }
+}
+
+updatePortraitOverlay();
+window.addEventListener("resize", updatePortraitOverlay);
+
+btnIgnorePortrait.addEventListener("click", () => {
+  portraitIgnored = true;
+  portraitOverlay.classList.add("hidden");
+});
 
 // ── Feature detection ──────────────────────────────────────────────────────
 if (!navigator.mediaDevices?.getUserMedia) {

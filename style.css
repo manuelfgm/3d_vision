@@ -239,6 +239,56 @@ html, body {
   background: rgba(255, 255, 255, 0.25);
 }
 
+/* ── Portrait overlay ── */
+#portrait-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: all;
+}
+
+#portrait-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  text-align: center;
+  padding: 2rem;
+}
+
+#rotate-icon {
+  font-size: 4rem;
+  animation: rock 1.4s ease-in-out infinite;
+  transform-origin: center;
+  line-height: 1;
+}
+
+@keyframes rock {
+  0%, 100% { transform: rotate(-35deg); }
+  50%       { transform: rotate(55deg);  }
+}
+
+#portrait-content p {
+  font-size: 1.1rem;
+  color: #ccc;
+  line-height: 1.6;
+}
+
+#btn-ignore-portrait {
+  padding: 0.5rem 1.4rem;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 8px;
+  background: transparent;
+  color: #888;
+  font-size: 0.8rem;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* ── Utility ── */
 .hidden {
   display: none !important;
