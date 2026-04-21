@@ -1,0 +1,245 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #fff;
+}
+
+/* ── Hidden video feed ── */
+#video {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Full-screen stereo canvas ── */
+#canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Center divider ── */
+#center-line {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* ── Overlay container ── */
+#overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ── Start screen ── */
+#start-screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4rem;
+  background: rgba(0, 0, 0, 0.88);
+  padding: 2rem 1.5rem;
+  pointer-events: all;
+  text-align: center;
+}
+
+#start-screen h1 {
+  font-size: clamp(2rem, 8vw, 3rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #7df;
+}
+
+#start-screen p {
+  font-size: clamp(0.85rem, 3vw, 1rem);
+  line-height: 1.7;
+  color: #ccc;
+  max-width: 340px;
+}
+
+#compat-warning {
+  font-size: 0.85rem;
+  color: #f96;
+  max-width: 300px;
+  line-height: 1.5;
+}
+
+#btn-start {
+  padding: 0.85rem 2.8rem;
+  font-size: 1.05rem;
+  border: 2px solid #7df;
+  border-radius: 999px;
+  background: transparent;
+  color: #7df;
+  cursor: pointer;
+  pointer-events: all;
+  transition: background 0.2s, color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#btn-start:hover,
+#btn-start:active {
+  background: #7df;
+  color: #000;
+}
+
+#btn-start:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* ── Loading overlay ── */
+#loading-screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  background: rgba(0, 0, 0, 0.9);
+  pointer-events: all;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(120, 220, 255, 0.2);
+  border-top-color: #7df;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+#loading-text {
+  font-size: 0.95rem;
+  color: #aaa;
+}
+
+/* ── HUD ── */
+#hud {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  pointer-events: none;
+}
+
+/* ── Tracking indicator ── */
+#tracking-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  width: fit-content;
+  backdrop-filter: blur(4px);
+}
+
+#tracking-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #f44;
+  transition: background 0.4s;
+  flex-shrink: 0;
+}
+
+#tracking-dot.active {
+  background: #4f4;
+}
+
+#tracking-label {
+  font-size: 0.78rem;
+  color: #ddd;
+}
+
+/* ── Bottom controls ── */
+#bottom-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+  justify-content: center;
+  pointer-events: all;
+}
+
+#bottom-controls button {
+  padding: 0.45rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.65);
+  color: #eee;
+  font-size: 0.82rem;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  -webkit-tap-highlight-color: transparent;
+}
+
+#bottom-controls button:active {
+  background: rgba(120, 220, 255, 0.25);
+}
+
+#bottom-controls label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 0.75rem;
+  color: #bbb;
+}
+
+#bottom-controls input[type="range"] {
+  width: 110px;
+  cursor: pointer;
+}
+
+/* ── Alignment guide dots ── */
+#guide-dots {
+  position: absolute;
+  top: 14px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  pointer-events: none;
+}
+
+.guide-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ── Utility ── */
+.hidden {
+  display: none !important;
+}

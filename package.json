@@ -1,0 +1,17 @@
+{
+  "name": "3d-vision",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview --host"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-basic-ssl": "^1.1.0",
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "three": "^0.184.0"
+  }
+}

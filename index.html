@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>3D Vision</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Hidden video feed for eye tracking -->
+  <video id="video" autoplay playsinline muted></video>
+
+  <!-- Stereo render canvas -->
+  <canvas id="canvas"></canvas>
+
+  <!-- Center divider line -->
+  <div id="center-line"></div>
+
+  <!-- UI overlay -->
+  <div id="overlay">
+
+    <!-- Start screen -->
+    <div id="start-screen">
+      <h1>3D Vision</h1>
+      <p>
+        La cámara frontal rastreará tus ojos para adaptar<br />
+        la perspectiva en tiempo real.<br /><br />
+        Sostén el teléfono a ~35 cm y deja que tu<br />
+        vista se relaje "detrás" de la pantalla para<br />
+        fusionar las dos imágenes.
+      </p>
+      <div id="compat-warning" class="hidden">
+        ⚠️ Tu navegador puede no ser compatible.<br />
+        Recomendado: Chrome en Android.
+      </div>
+      <button id="btn-start">Iniciar experiencia</button>
+    </div>
+
+    <!-- Loading overlay -->
+    <div id="loading-screen" class="hidden">
+      <div class="spinner"></div>
+      <p id="loading-text">Iniciando cámara...</p>
+    </div>
+
+    <!-- HUD -->
+    <div id="hud" class="hidden">
+      <div id="tracking-indicator">
+        <div id="tracking-dot"></div>
+        <span id="tracking-label">Buscando cara…</span>
+      </div>
+
+      <div id="bottom-controls">
+        <button id="btn-toggle-mode">Modo: Paralelo</button>
+        <label>
+          IPD <span id="ipd-value">63mm</span>
+          <input type="range" id="ipd-slider" min="0.030" max="0.100" step="0.001" value="0.063" />
+        </label>
+        <button id="btn-back">← Salir</button>
+      </div>
+    </div>
+
+    <!-- Alignment guide dots (one per eye half) -->
+    <div id="guide-dots" class="hidden">
+      <div class="guide-dot left"></div>
+      <div class="guide-dot right"></div>
+    </div>
+
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
